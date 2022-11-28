@@ -7,11 +7,13 @@ class CleanCondition(pygame.sprite.Group):
         super().__init__()
         start_x = random.randint(0, 500)
         start_y = 0 
-        for i in range(10):
+        
+        for i in range(35):
             
             clean_water = CleanWater()
             
-            clean_water.rect.x += start_x 
             clean_water.rect.y = start_y
 
             self.add(clean_water)
+
+            clean_water.rect.x += start_x 

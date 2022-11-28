@@ -8,7 +8,7 @@ class DirtyCondition(pygame.sprite.Group):
         start_x = random.randint(0, 20)
         start_y = 0 
         
-        for i in range(2):
+        for i in range(5):
             dirty_water = DirtyWater()
             
             dirty_water.rect.y = start_y

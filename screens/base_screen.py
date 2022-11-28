@@ -24,7 +24,7 @@ class BaseScreen:
         self.running = True
         while self.running:
             # Tick the clock
-            clock.tick(0)
+            clock.tick(30)
             # Do whatever is needed to update the screen objects
             self.update()
             # Draw the objects on the screen

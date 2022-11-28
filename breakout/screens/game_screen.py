@@ -43,7 +43,11 @@ class GameScreen(BaseScreen):
         if pygame.sprite.spritecollide(self.character, self.dirty_condition, dokill = True):
             pygame.time.wait(150)
             self.running = False 
-            self.next_screen = "final"
+            self.next_screen = "final" 
+
+        # if self.window.get_at((self.character.rect.top, self.character.rect.right)) == 
+        #     self.running = False 
+        #     self.next_screen = "final"
 
     def manage_event(self, event):
         if event.type == pygame.KEYDOWN:
