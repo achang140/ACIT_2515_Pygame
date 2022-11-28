@@ -4,6 +4,7 @@ from components.text_box import TextBox
 from breakout.components.character import Character
 from breakout.components.clean_condition import CleanCondition
 from breakout.components.dirty_condition import DirtyCondition
+from breakout.components.snow_condition import SnowCondition
 
 
 class GameScreen(BaseScreen):
@@ -14,6 +15,7 @@ class GameScreen(BaseScreen):
         self.character = Character() 
         self.clean_condition = CleanCondition()
         self.dirty_condition = DirtyCondition()
+        self.snow_condition = SnowCondition()
         # self.clean = CleanWater()
     
     def draw(self):
@@ -26,6 +28,7 @@ class GameScreen(BaseScreen):
         self.window.blit(self.character.image, self.character.rect)
         self.clean_condition.draw(self.window)
         self.dirty_condition.draw(self.window)
+        self.snow_condition.draw(self.window)
 
         # Check Rectangle Around the Container 
         # pygame.draw.rect(self.window, (0, 0, 0), self.character.rect_rectangle, 2)
@@ -33,6 +36,7 @@ class GameScreen(BaseScreen):
     def update(self):
         self.clean_condition.update() 
         self.dirty_condition.update()
+        self.snow_condition.update() 
         
         self.score_board = TextBox((150, 100), self.score, bgcolor = (255, 255, 220)) # Width and Height, Text, Background Color 
         self.score_board.rect.topright = (800, 0)
@@ -40,6 +44,11 @@ class GameScreen(BaseScreen):
         if pygame.sprite.spritecollide(self.character, self.clean_condition, dokill = True):
             self.score += 1 
             print(self.score)
+        
+        if pygame.sprite.spritecollide(self.character, self.snow_condition, dokill = True):
+            self.score += 0.5 
+            print(self.score)
+
         if pygame.sprite.spritecollide(self.character, self.dirty_condition, dokill = True):
             pygame.time.wait(150)
             self.running = False 

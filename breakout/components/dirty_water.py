@@ -8,6 +8,6 @@ class DirtyWater(pygame.sprite.Sprite):
         self.rect.x = random.randint(0, 800)
 
     def update(self):
-        self.rect.y += random.randint(0, 35) # Drop from Sky 
-        if self.rect.bottom == 700:
+        self.rect.y += random.randint(-10, 30) # Drop from Sky 
+        if self.rect.bottom > 650:
             self.kill() # Water Drop to the Ground, Dissappear 
