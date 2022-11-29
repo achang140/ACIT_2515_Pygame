@@ -67,18 +67,18 @@ class GameScreen(BaseScreen):
 
         if pygame.sprite.spritecollide(self.character, self.dirty_condition, dokill = True):
             self.final_time += self.time 
-            # print(self.final_time)
+            print(self.final_time)
             pygame.time.wait(150)
             self.running = False 
-            self.next_screen = "final" 
+            # self.next_screen = "final" 
+            self.next_screen = "testfinal"
 
         if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
             self.final_time += self.time 
-            # print(self.final_time)
+            print(self.final_time)
             self.running = False
             self.next_screen = "finalwin"
         
-
     def manage_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
