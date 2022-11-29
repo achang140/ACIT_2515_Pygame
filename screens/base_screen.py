@@ -1,4 +1,4 @@
-import pygame
+import pygame, json
 
 
 class BaseScreen:
@@ -10,6 +10,27 @@ class BaseScreen:
         self.state = state
         # By default, there is no next screen (= game quits)
         self.next_screen = False
+        self.data = {}
+        self.read_from_json()
+
+    def read_from_json(self): 
+        with open("data.json", "r") as fp: 
+            self.data = json.load(fp)  
+
+    def write_to_json(self):
+        # print(data)
+        
+        if self.state["username"] in self.data.keys():
+            self.data[self.state["username"]]["Time"].append(self.state["final_time"]) 
+            self.data[self.state["username"]]["Score"].append(self.state["final_score"])
+        else:
+            self.data[self.state["username"]] = {"Time": [self.state["final_time"]], "Score": [self.state["final_score"]]}
+
+            # self.data[self.state["username"]]["Time"] = [self.state["final_time"]]
+            # self.data[self.state["username"]]["Score"] = [self.state["final_score"]]
+        
+        with open("data.json", "w") as fp:
+            json.dump(self.data, fp)
 
     def run(self):
         """

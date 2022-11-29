@@ -49,7 +49,8 @@ class FinalWinScreen(BaseScreen):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.start_btn.rect.collidepoint(event.pos):
                 self.running = False
-                self.next_screen = "game"
+                self.next_screen = "userinfo"
             if self.end_btn.rect.collidepoint(event.pos):
+                self.write_to_json()
                 self.running = False 
                 self.next_screen = False 

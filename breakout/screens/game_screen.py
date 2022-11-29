@@ -72,7 +72,7 @@ class GameScreen(BaseScreen):
             self.state["final_time"] = self.final_time 
             # print(self.final_time)
             pygame.time.wait(150)
-            self.upload_to_json() 
+            # self.upload_to_json() 
             self.running = False 
             self.next_screen = "final"
             # self.next_screen = "testfinal"
@@ -82,7 +82,7 @@ class GameScreen(BaseScreen):
             self.final_time += seconds 
             self.state["final_time"] = self.final_time             
             # print(self.final_time)
-            self.upload_to_json()
+            # self.upload_to_json()
             self.running = False
             self.next_screen = "finalwin"
         
@@ -97,19 +97,15 @@ class GameScreen(BaseScreen):
             if event.key == pygame.K_DOWN:
                 self.character.move_down()
 
-    def upload_to_json(self):
-        try: 
-            with open("data.json", "r") as fp: 
-                data = json.load(fp)
-
-                # print(data)
-
-                data["Time"] = self.state["final_time"]
-                data["Score"] = self.state["final_score"]
-            
-            with open("data.json", "w") as fp:
-                json.dump(data, fp)
+    # def read_from_json(self): 
+    #     with open("data.json", "r") as fp: 
+    #         self.data = json.load(fp)
+    
+    # def write_to_json(self):
+    #         # print(data)
+    #         data["Name"] = self.state["username"]
+    #         data["Time"] = self.state["final_time"]
+    #         data["Score"] = self.state["final_score"]
         
-        except: 
-            with open("data.json", "w") as fp: 
-                json.dump(data, fp)
+    #     with open("data.json", "w") as fp:
+    #         json.dump(data, fp)
