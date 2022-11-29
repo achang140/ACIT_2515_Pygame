@@ -8,8 +8,12 @@ from components.text_box import TextBox
 class FinalScreen(BaseScreen):
     def __init__(self, window):
         super().__init__(window)
-        self.start_btn = TextBox((300, 100), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
+        self.start_btn = TextBox((300, 80), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
         self.start_btn.rect.topleft = (250, 200)
+
+        self.end_btn = TextBox((300, 80), "Exit", bgcolor = (173, 188, 230)) 
+        self.end_btn.rect.topleft = (250, 300)
+
         self.unhappy_character = UnhappyCharacter()
         self.final_flower = FinalFlower()
         # self.game = GameScreen(BaseScreen)
@@ -20,6 +24,7 @@ class FinalScreen(BaseScreen):
         self.window.blit(background, (0, 0))
 
         self.window.blit(self.start_btn.image, self.start_btn.rect)
+        self.window.blit(self.end_btn.image, self.end_btn.rect)
 
         self.window.blit(self.unhappy_character.image, self.unhappy_character.rect)
         self.window.blit(self.final_flower.image, self.final_flower.rect)
@@ -34,3 +39,6 @@ class FinalScreen(BaseScreen):
             if self.start_btn.rect.collidepoint(event.pos):
                 self.running = False
                 self.next_screen = "game"
+            if self.end_btn.rect.collidepoint(event.pos):
+                self.running = False 
+                self.next_screen = False 

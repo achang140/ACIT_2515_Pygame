@@ -13,7 +13,7 @@ class Game:
         display_width = 800 
         display_height = 700
         self.window = pygame.display.set_mode((display_width, display_height))
-        pygame.display.set_caption("Water in Desert")
+        pygame.display.set_caption("Catch Raindrops and Rescue the Flower in the Desert")
 
     def run(self):
         """Main method, manages interaction between screens"""

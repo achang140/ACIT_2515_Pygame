@@ -70,8 +70,8 @@ class GameScreen(BaseScreen):
             print(self.final_time)
             pygame.time.wait(150)
             self.running = False 
-            # self.next_screen = "final" 
-            self.next_screen = "testfinal"
+            self.next_screen = "final" 
+            # self.next_screen = "testfinal"
 
         if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
             self.final_time += self.time 
