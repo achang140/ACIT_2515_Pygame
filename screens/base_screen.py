@@ -4,9 +4,10 @@ import pygame
 class BaseScreen:
     """Base class for all game screens"""
 
-    def __init__(self, window):
+    def __init__(self, window, state):
         # window surface
         self.window = window
+        self.state = state
         # By default, there is no next screen (= game quits)
         self.next_screen = False
 

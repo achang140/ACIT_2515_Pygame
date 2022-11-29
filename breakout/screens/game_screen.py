@@ -1,4 +1,4 @@
-import pygame, math 
+import pygame, math, json 
 from screens.base_screen import BaseScreen
 from components.text_box import TextBox
 from breakout.components.character import Character
@@ -11,10 +11,10 @@ from breakout.components.flower_env import FlowerEnv
 # SNOWEVENT = pygame.USEREVENT + 1 
 
 class GameScreen(BaseScreen):
-    def __init__(self, window):
-        super().__init__(window)
+    def __init__(self, window, state):
+        super().__init__(window, state)
         self.score = 0 
-        self.time = 0
+        self.time = pygame.time.get_ticks()
         self.final_time = 0 
 
         self.character = Character() 
@@ -47,6 +47,7 @@ class GameScreen(BaseScreen):
         # pygame.draw.rect(self.window, (0, 0, 0), self.character.rect_rectangle, 2)
 
     def update(self):
+        current_time = pygame.time.get_ticks()
         self.clean_condition.update() 
         self.dirty_condition.update()
         self.snow_condition.update() 
@@ -54,8 +55,8 @@ class GameScreen(BaseScreen):
         self.score_board = TextBox((150, 100), self.score, bgcolor = (255, 255, 220)) # Width and Height, Text, Background Color 
         self.score_board.rect.topright = (800, 0)
 
-        self.time += math.floor(pygame.time.get_ticks() / 1000) 
-        self.timer = TextBox((150, 100), self.time, bgcolor = (255, 255, 220))
+        seconds = math.floor((current_time - self.time) / 1000) 
+        self.timer = TextBox((150, 100), seconds, bgcolor = (255, 255, 220))
 
         if pygame.sprite.spritecollide(self.character, self.clean_condition, dokill = True):
             self.score += 1 
@@ -66,16 +67,22 @@ class GameScreen(BaseScreen):
             # print(self.score)
 
         if pygame.sprite.spritecollide(self.character, self.dirty_condition, dokill = True):
-            self.final_time += self.time 
-            print(self.final_time)
+            self.state["final_score"] = self.score
+            self.final_time += seconds 
+            self.state["final_time"] = self.final_time 
+            # print(self.final_time)
             pygame.time.wait(150)
+            self.upload_to_json() 
             self.running = False 
-            self.next_screen = "final" 
+            self.next_screen = "final"
             # self.next_screen = "testfinal"
 
         if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
-            self.final_time += self.time 
-            print(self.final_time)
+            self.state["final_score"] = self.score
+            self.final_time += seconds 
+            self.state["final_time"] = self.final_time             
+            # print(self.final_time)
+            self.upload_to_json()
             self.running = False
             self.next_screen = "finalwin"
         
@@ -89,3 +96,20 @@ class GameScreen(BaseScreen):
                 self.character.move_up()
             if event.key == pygame.K_DOWN:
                 self.character.move_down()
+
+    def upload_to_json(self):
+        try: 
+            with open("data.json", "r") as fp: 
+                data = json.load(fp)
+
+                # print(data)
+
+                data["Time"] = self.state["final_time"]
+                data["Score"] = self.state["final_score"]
+            
+            with open("data.json", "w") as fp:
+                json.dump(data, fp)
+        
+        except: 
+            with open("data.json", "w") as fp: 
+                json.dump(data, fp)
