@@ -5,6 +5,8 @@ from breakout.components.character import Character
 from breakout.components.clean_condition import CleanCondition
 from breakout.components.dirty_condition import DirtyCondition
 from breakout.components.snow_condition import SnowCondition
+from breakout.components.flower_env import FlowerEnv
+# from breakout.components.flower import Flower
 
 
 class GameScreen(BaseScreen):
@@ -16,16 +18,21 @@ class GameScreen(BaseScreen):
         self.clean_condition = CleanCondition()
         self.dirty_condition = DirtyCondition()
         self.snow_condition = SnowCondition()
-        # self.clean = CleanWater()
+        self.flower_env = FlowerEnv()
+        # self.flower = Flower()
     
     def draw(self):
         background_image = pygame.image.load("./images/background.png")
         background = pygame.transform.scale(background_image, (800, 700))
         self.window.blit(background, (0, 0))
 
+        # self.window.blit(self.flower.image, self.flower.rect)
+
         self.window.blit(self.score_board.image, self.score_board.rect)
 
         self.window.blit(self.character.image, self.character.rect)
+        self.flower_env.draw(self.window)
+
         self.clean_condition.draw(self.window)
         self.dirty_condition.draw(self.window)
         self.snow_condition.draw(self.window)
@@ -54,6 +61,10 @@ class GameScreen(BaseScreen):
             self.running = False 
             self.next_screen = "final" 
 
+        if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
+            self.running = False
+            self.next_screen = "finalwin"
+
         # if self.window.get_at((self.character.rect.top, self.character.rect.right)) == 
         #     self.running = False 
         #     self.next_screen = "final"
@@ -64,3 +75,7 @@ class GameScreen(BaseScreen):
                 self.character.move_right()
             if event.key == pygame.K_LEFT:
                 self.character.move_left()
+            if event.key == pygame.K_UP:
+                self.character.move_up()
+            if event.key == pygame.K_DOWN:
+                self.character.move_down()

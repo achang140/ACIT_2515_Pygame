@@ -1,17 +1,17 @@
 import pygame 
 from screens.base_screen import BaseScreen
-from breakout.components.unhappy_character import UnhappyCharacter
-from breakout.components.final_flower import FinalFlower
+from breakout.components.happy_character import HappyCharacter
+from breakout.components.final_win_flower import FinalWinFlower
 # from .game_screen import GameScreen
 from components.text_box import TextBox
 
-class FinalScreen(BaseScreen):
+class FinalWinScreen(BaseScreen):
     def __init__(self, window):
         super().__init__(window)
         self.start_btn = TextBox((300, 100), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
         self.start_btn.rect.topleft = (250, 200)
-        self.unhappy_character = UnhappyCharacter()
-        self.final_flower = FinalFlower()
+        self.happy_character = HappyCharacter()
+        self.final_win_flower = FinalWinFlower()
         # self.game = GameScreen(BaseScreen)
 
     def draw(self):
@@ -21,8 +21,8 @@ class FinalScreen(BaseScreen):
 
         self.window.blit(self.start_btn.image, self.start_btn.rect)
 
-        self.window.blit(self.unhappy_character.image, self.unhappy_character.rect)
-        self.window.blit(self.final_flower.image, self.final_flower.rect)
+        self.window.blit(self.happy_character.image, self.happy_character.rect)
+        self.window.blit(self.final_win_flower.image, self.final_win_flower.rect)
 
         # self.window.blit(self.game.score_board, (0, 0))
    

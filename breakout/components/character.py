@@ -25,3 +25,10 @@ class Character(pygame.sprite.Sprite):
         # Prevent Character from Moving Out of the Screen 
         if self.rect.left < 0: 
             self.rect.x = 0
+
+    def move_up(self):
+        self.rect.y -= 15 
+
+    def move_down(self):
+        self.rect.y += 15 
+        
