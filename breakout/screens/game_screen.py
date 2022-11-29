@@ -2,11 +2,11 @@ import pygame
 from screens.base_screen import BaseScreen
 from components.text_box import TextBox
 from breakout.components.character import Character
+# from breakout.components.happy_character import HappyCharacter
 from breakout.components.clean_condition import CleanCondition
 from breakout.components.dirty_condition import DirtyCondition
 from breakout.components.snow_condition import SnowCondition
 from breakout.components.flower_env import FlowerEnv
-# from breakout.components.flower import Flower
 
 
 class GameScreen(BaseScreen):
@@ -15,18 +15,16 @@ class GameScreen(BaseScreen):
         self.score = 0 
 
         self.character = Character() 
+        # self.happy_character = HappyCharacter()
         self.clean_condition = CleanCondition()
         self.dirty_condition = DirtyCondition()
         self.snow_condition = SnowCondition()
         self.flower_env = FlowerEnv()
-        # self.flower = Flower()
     
     def draw(self):
         background_image = pygame.image.load("./images/background.png")
         background = pygame.transform.scale(background_image, (800, 700))
         self.window.blit(background, (0, 0))
-
-        # self.window.blit(self.flower.image, self.flower.rect)
 
         self.window.blit(self.score_board.image, self.score_board.rect)
 
@@ -36,6 +34,10 @@ class GameScreen(BaseScreen):
         self.clean_condition.draw(self.window)
         self.dirty_condition.draw(self.window)
         self.snow_condition.draw(self.window)
+
+        # Change Character to Happy if self.score > 0 
+        # if self.score > 0: 
+        #     self.window.blit(self.happy_character.image, self.happy_character.rect)
 
         # Check Rectangle Around the Container 
         # pygame.draw.rect(self.window, (0, 0, 0), self.character.rect_rectangle, 2)
@@ -64,10 +66,6 @@ class GameScreen(BaseScreen):
         if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
             self.running = False
             self.next_screen = "finalwin"
-
-        # if self.window.get_at((self.character.rect.top, self.character.rect.right)) == 
-        #     self.running = False 
-        #     self.next_screen = "final"
 
     def manage_event(self, event):
         if event.type == pygame.KEYDOWN:
