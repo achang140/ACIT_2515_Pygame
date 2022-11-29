@@ -1,5 +1,1 @@
-{
-  "username": { "Time": [1], "Score": [0] },
-  "b": { "Time": [1], "Score": [0] },
-  "a": { "Time": [1, 1], "Score": [1, 0] }
-}
+{"A": {"Time": [4], "Score": [14.0]}}
