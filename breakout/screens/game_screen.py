@@ -1,4 +1,4 @@
-import pygame 
+import pygame, math 
 from screens.base_screen import BaseScreen
 from components.text_box import TextBox
 from breakout.components.character import Character
@@ -8,11 +8,13 @@ from breakout.components.dirty_condition import DirtyCondition
 from breakout.components.snow_condition import SnowCondition
 from breakout.components.flower_env import FlowerEnv
 
+# SNOWEVENT = pygame.USEREVENT + 1 
 
 class GameScreen(BaseScreen):
     def __init__(self, window):
         super().__init__(window)
         self.score = 0 
+        self.time = 0
 
         self.character = Character() 
         # self.happy_character = HappyCharacter()
@@ -27,6 +29,7 @@ class GameScreen(BaseScreen):
         self.window.blit(background, (0, 0))
 
         self.window.blit(self.score_board.image, self.score_board.rect)
+        self.window.blit(self.timer.image, self.timer.rect)
 
         self.window.blit(self.character.image, self.character.rect)
         self.flower_env.draw(self.window)
@@ -49,6 +52,9 @@ class GameScreen(BaseScreen):
         
         self.score_board = TextBox((150, 100), self.score, bgcolor = (255, 255, 220)) # Width and Height, Text, Background Color 
         self.score_board.rect.topright = (800, 0)
+
+        self.time += math.floor(pygame.time.get_ticks() / 1000) 
+        self.timer = TextBox((150, 100), self.time, bgcolor = (255, 255, 220))
 
         if pygame.sprite.spritecollide(self.character, self.clean_condition, dokill = True):
             self.score += 1 

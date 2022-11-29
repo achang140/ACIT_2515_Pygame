@@ -9,7 +9,7 @@ class WelcomeScreen(BaseScreen):
         self.start_btn = TextBox((300, 100), "Start", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
         self.instruction_btn = TextBox((300, 100), "Instruction", bgcolor = (173, 188, 230))
         self.start_btn.rect.topleft = (250, 200)
-        self.instruction_btn.rect.topleft = (250, 400)      
+        self.instruction_btn.rect.topleft = (250, 400) 
 
     def draw(self):
         background_image = pygame.image.load("./images/background_character.png")
