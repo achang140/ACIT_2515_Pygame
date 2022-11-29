@@ -15,6 +15,7 @@ class GameScreen(BaseScreen):
         super().__init__(window)
         self.score = 0 
         self.time = 0
+        self.final_time = 0 
 
         self.character = Character() 
         # self.happy_character = HappyCharacter()
@@ -58,20 +59,25 @@ class GameScreen(BaseScreen):
 
         if pygame.sprite.spritecollide(self.character, self.clean_condition, dokill = True):
             self.score += 1 
-            print(self.score)
+            # print(self.score)
         
         if pygame.sprite.spritecollide(self.character, self.snow_condition, dokill = True):
             self.score += 0.5 
-            print(self.score)
+            # print(self.score)
 
         if pygame.sprite.spritecollide(self.character, self.dirty_condition, dokill = True):
+            self.final_time += self.time 
+            # print(self.final_time)
             pygame.time.wait(150)
             self.running = False 
             self.next_screen = "final" 
 
         if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
+            self.final_time += self.time 
+            # print(self.final_time)
             self.running = False
             self.next_screen = "finalwin"
+        
 
     def manage_event(self, event):
         if event.type == pygame.KEYDOWN:
