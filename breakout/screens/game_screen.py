@@ -72,17 +72,14 @@ class GameScreen(BaseScreen):
             self.state["final_time"] = self.final_time 
             # print(self.final_time)
             pygame.time.wait(150)
-            # self.upload_to_json() 
             self.running = False 
             self.next_screen = "final"
-            # self.next_screen = "testfinal"
 
         if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
             self.state["final_score"] = self.score
             self.final_time += seconds 
             self.state["final_time"] = self.final_time             
             # print(self.final_time)
-            # self.upload_to_json()
             self.running = False
             self.next_screen = "finalwin"
         
@@ -96,16 +93,3 @@ class GameScreen(BaseScreen):
                 self.character.move_up()
             if event.key == pygame.K_DOWN:
                 self.character.move_down()
-
-    # def read_from_json(self): 
-    #     with open("data.json", "r") as fp: 
-    #         self.data = json.load(fp)
-    
-    # def write_to_json(self):
-    #         # print(data)
-    #         data["Name"] = self.state["username"]
-    #         data["Time"] = self.state["final_time"]
-    #         data["Score"] = self.state["final_score"]
-        
-    #     with open("data.json", "w") as fp:
-    #         json.dump(data, fp)

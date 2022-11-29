@@ -25,9 +25,6 @@ class BaseScreen:
             self.data[self.state["username"]]["Score"].append(self.state["final_score"])
         else:
             self.data[self.state["username"]] = {"Time": [self.state["final_time"]], "Score": [self.state["final_score"]]}
-
-            # self.data[self.state["username"]]["Time"] = [self.state["final_time"]]
-            # self.data[self.state["username"]]["Score"] = [self.state["final_score"]]
         
         with open("data.json", "w") as fp:
             json.dump(self.data, fp)
