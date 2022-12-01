@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block subheading %}
+    Player: {{ playername }}
+{% endblock %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>Score</th>
+        <th>Time (Seconds)</th>
+    </tr>
+    {% for i in range(length) %}
+    <tr>
+        <td>{{ scores[i] }}</td>
+        <td>{{ time[i] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

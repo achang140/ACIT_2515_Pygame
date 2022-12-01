@@ -8,8 +8,6 @@ from breakout.components.dirty_condition import DirtyCondition
 from breakout.components.snow_condition import SnowCondition
 from breakout.components.flower_env import FlowerEnv
 
-# SNOWEVENT = pygame.USEREVENT + 1 
-
 class GameScreen(BaseScreen):
     def __init__(self, window, state):
         super().__init__(window, state)
@@ -18,7 +16,6 @@ class GameScreen(BaseScreen):
         self.final_time = 0 
 
         self.character = Character() 
-        # self.happy_character = HappyCharacter()
         self.clean_condition = CleanCondition()
         self.dirty_condition = DirtyCondition()
         self.snow_condition = SnowCondition()
@@ -59,11 +56,11 @@ class GameScreen(BaseScreen):
         self.timer = TextBox((150, 100), seconds, bgcolor = (255, 255, 220))
 
         if pygame.sprite.spritecollide(self.character, self.clean_condition, dokill = True):
-            self.score += 1 
+            self.score += 2
             # print(self.score)
         
         if pygame.sprite.spritecollide(self.character, self.snow_condition, dokill = True):
-            self.score += 0.5 
+            self.score += 1 
             # print(self.score)
 
         if pygame.sprite.spritecollide(self.character, self.dirty_condition, dokill = True):

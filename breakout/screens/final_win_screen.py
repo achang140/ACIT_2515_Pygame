@@ -1,12 +1,18 @@
-import pygame 
+import pygame, webbrowser 
 from screens.base_screen import BaseScreen
 from breakout.components.happy_character import HappyCharacter
 from breakout.components.final_win_flower import FinalWinFlower
-# from .game_screen import GameScreen
 from components.text_box import TextBox
+from subprocess import Popen 
 
 class FinalWinScreen(BaseScreen):
+    """ 
+    Final Screen to Winners 
+    Inherit from BaseScreen 
+    
+    """
     def __init__(self, window,state):
+        """_Constructor """
         super().__init__(window,state)
         self.start_btn = TextBox((300, 80), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
         self.start_btn.rect.topleft = (250, 200)
@@ -27,6 +33,10 @@ class FinalWinScreen(BaseScreen):
         # self.game = GameScreen(BaseScreen)
 
     def draw(self):
+        """ 
+        Draw 2 buttons (Start and Exit), 2 images (Character and Flower), 
+        final score, and final time onto the screen 
+        """
         background_image = pygame.image.load("./images/background.png")
         background = pygame.transform.scale(background_image, (800, 700))
         self.window.blit(background, (0, 0))
@@ -46,11 +56,17 @@ class FinalWinScreen(BaseScreen):
         pass 
 
     def manage_event(self, event):
+        """ 
+        Detect mouse action, click on start to 
+        """
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.start_btn.rect.collidepoint(event.pos):
+                self.write_to_json()
                 self.running = False
                 self.next_screen = "userinfo"
             if self.end_btn.rect.collidepoint(event.pos):
                 self.write_to_json()
+                Popen("python app.py")
+                webbrowser.open("http://127.0.0.1:5000")
                 self.running = False 
                 self.next_screen = False 
