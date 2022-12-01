@@ -1,1 +1,10 @@
-{"A": {"Time": [5, 2, 5, 1, 1, 1, 1, 1], "Score": [23, 0, 27, 6, 0, 4, 0, 0]}, "B": {"Time": [1, 1, 4], "Score": [10, 0, 37]}, "C": {"Time": [6, 1, 1, 1, 1, 1, 1], "Score": [22, 0, 0, 0, 0, 0, 8]}, "D": {"Time": [1, 1, 1], "Score": [0, 0, 0]}, "F": {"Time": [1], "Score": [0]}, "E": {"Time": [1, 5], "Score": [0, 28]}}
+{
+  "Amanda": { "Time": [6, 1, 6], "Score": [24, 0, 34] },
+  "Someone": { "Time": [6, 1, 5], "Score": [5, 0, 27] },
+  "SomeoneElse": { "Time": [2, 2, 5], "Score": [1, 10, 37] },
+  "SpongeBob": { "Time": [5, 5, 7], "Score": [26, 32, 35] },
+  "MrKrabs": { "Time": [4, 5], "Score": [18, 21] },
+  "Squarepants": { "Time": [1, 0, 5], "Score": [0, 0, 12] },
+  "Karen": { "Time": [4, 4, 0, 6], "Score": [27, 27, 0, 28] },
+  "CatMeow": { "Time": [0, 5], "Score": [0, 20] }
+}
