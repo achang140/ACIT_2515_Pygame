@@ -1,11 +1,23 @@
-<!-- <head>
-    <a href="/templates/home.html">Home</a>
-</head> -->
+<head>
+    <a id="home" href="/">Home</a>
+</head>
 {% extends "base.html" %}
 {% block subheading %}
     Player: {{ playername }}
 {% endblock %}
 {% block content %}
+<table>
+    <tr>
+        <th>Best Score</th>
+        <th>Time (Seconds)</th>
+        <th># of Times Played</th>
+    </tr>
+    <tr>
+        <td>{{ top_score }}</td>
+        <td>{{ top_time }}</td>
+        <td>{{ times_played }}</td>
+    </tr>
+</table>
 <table>
     <tr>
         <th>Score</th>

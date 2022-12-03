@@ -1,9 +1,12 @@
 import pygame
-from breakout.screens.welcome_screen import WelcomeScreen
-from breakout.screens.user_info import UserInfo
-from breakout.screens.game_screen import GameScreen
-from breakout.screens.final_win_screen import FinalWinScreen 
-from breakout.screens.final_screen import FinalScreen
+
+from breakout.screens import WelcomeScreen, UserInfo, GameScreen, FinalScreen, FinalWinScreen
+
+# from breakout.screens.welcome_screen import WelcomeScreen
+# from breakout.screens.user_info_screen import UserInfo
+# from breakout.screens.game_screen import GameScreen
+# from breakout.screens.final_win_screen import FinalWinScreen 
+# from breakout.screens.final_screen import FinalScreen
 
 class Game:
     """Main class for the application"""
@@ -24,9 +27,8 @@ class Game:
             # "instruction": InstructionScreen, 
             "userinfo": UserInfo, 
             "game": GameScreen,
-            "finalwin": FinalWinScreen, # To be modified 
+            "finalwin": FinalWinScreen,
             "final": FinalScreen, 
-            # "testfinal": TestFinalScreen, 
         }
 
         running = True
