@@ -8,6 +8,7 @@ class FinalScreen(BaseScreen):
     """ 
     FinalScreen Class inherits from BaseScreen Class 
     Final Screen to players who did not successful water the flower (Character touches the dirty water before colliding with the flower) 
+    Position the buttons on the final_screen. 
     """
     def __init__(self, window, state):
         """ 

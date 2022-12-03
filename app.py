@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request 
-from models.logic import Logic
+from models import Logic
 
 app = Flask(__name__)
 

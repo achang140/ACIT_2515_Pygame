@@ -14,6 +14,7 @@ class FinalWinScreen(BaseScreen):
         Constructs necessary components for winner's final screen. 
         Background with a happy character and a thankful flower. 
         Includes 2 buttons (start and exit), total score, and total time. 
+        Position the buttons on the final_win_screen. 
         """
         super().__init__(window,state)
         self.start_btn = TextBox((300, 80), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
