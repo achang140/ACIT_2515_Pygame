@@ -17,10 +17,10 @@ class FinalScreen(BaseScreen):
         Includes 2 buttons (start and exit), total score, and total time. 
         """
         super().__init__(window, state)
-        self.play_again_btn = TextBox((300, 80), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
+        self.play_again_btn = TextBox((300, 80), "Play Again", bgcolor = (255, 192, 203)) # Width and Height, Text, Background Color 
         self.play_again_btn.rect.topleft = (250, 200)
 
-        self.end_btn = TextBox((300, 80), "Exit", bgcolor = (173, 188, 230)) 
+        self.end_btn = TextBox((300, 80), "Exit & See Flask Result", bgcolor = (238, 130, 238)) 
         self.end_btn.rect.topleft = (250, 300)
 
         self.score_board = TextBox((150, 50), "Score: " + str(self.state["final_score"]), bgcolor = (255, 192, 77)) # Width and Height, Text, Background Color 

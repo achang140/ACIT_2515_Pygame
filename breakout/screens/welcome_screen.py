@@ -14,10 +14,10 @@ class WelcomeScreen(BaseScreen):
         """
         super().__init__(window, state)
 
-        self.start_btn = TextBox((300, 80), "Start", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
+        self.start_btn = TextBox((300, 80), "Start", bgcolor = (255, 192, 203)) # Width and Height, Text, Background Color 
         self.start_btn.rect.topleft = (250, 200)
 
-        self.instruction_btn = TextBox((300, 80), "Instruction", bgcolor = (173, 188, 230))
+        self.instruction_btn = TextBox((300, 80), "Instruction", bgcolor = (238, 130, 238))
         self.instruction_btn.rect.topleft = (250, 300) 
 
     def draw(self):
