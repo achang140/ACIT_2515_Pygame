@@ -2,6 +2,7 @@ import pygame
 import random 
 
 class Snow(pygame.sprite.Sprite):
+    """ Class to make a snow sprite """
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("./images/snow.png")
