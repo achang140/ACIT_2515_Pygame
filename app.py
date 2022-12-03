@@ -25,3 +25,7 @@ def one_player():
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
+
+    # names = data.sorted_names
+    # scores = data.names_scores
+    # time = data.names_times

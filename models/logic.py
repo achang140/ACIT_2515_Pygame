@@ -8,8 +8,14 @@ class Logic:
         """ Constructs necessary components for Logic Class """
         # JSON File 
         self.filename = filename 
-        # Whole JSON File into a List 
-        self.all_data = []
+        # Whole JSON File into a Dictionary 
+        self.all_data = {}
+        self.new_sorted = {}
+        
+        # Names in Alphabetical Order, with highest score and associated times in the same order as names   
+        self.sorted_names = []
+        self.names_scores = []
+        self.names_times = [] 
         
         # Name of All Players 
         self.players = [] 
@@ -32,13 +38,15 @@ class Logic:
         self.best = {} # Dictionary contains best user's name, score, and time 
 
         self.load_from_json()
+        self.sort_by_names()
+        self.high_score_time()
         self.best_player()
         self.times_played()
 
     def load_from_json(self):
         """ 
         Open and read data.json file
-        * Save the entire data.json file to the "self.all_data" list  
+        * Save the entire data.json file to the "self.all_data" list then sort by key to 
         * Save all players' names into the "self.players" list
         * Save all players' scores and times to the "self.players_info" list 
         * Save all players' scores into the list "self.scores"
@@ -49,23 +57,26 @@ class Logic:
             data = json.load(fp)
 
             for i in data: 
-                self.all_data.append(i)
+                self.all_data[i] = data[i]
 
             for data_name, data_history in data.items():
                 self.players.append(data_name)
                 self.players_info.append(data_history)
 
-            for info in self.players_info:
-                self.scores.append(info["Score"]) # All Scores 
-                self.time.append(info["Time"]) # All Times 
+    def high_score_time(self):
+        """ Each player's highest score and its corresponding time """
+        for info in self.players_info:
+            self.scores.append(info["Score"]) # All Scores 
+            self.time.append(info["Time"]) # All Times 
 
-                highest_score = max(info["Score"]) # Highest Score 
-                index_of_score = info["Score"].index(highest_score) # Index of the Highest Score 
-                time_of_score = info["Time"][index_of_score] # Time of the Highest Score will be the same index as Highest Score 
-                self.best_score.append(highest_score) # Highest Score of Each Player 
-                self.best_time.append(time_of_score) # Time of the Highest Score 
+            highest_score = max(info["Score"]) # Highest Score 
+            index_of_score = info["Score"].index(highest_score) # Index of the Highest Score 
+            time_of_score = info["Time"][index_of_score] # Time of the Highest Score will be the same index as Highest Score 
+            self.best_score.append(highest_score) # Highest Score of Each Player 
+            self.best_time.append(time_of_score) # Time of the Highest Score 
     
     def times_played(self):
+        """ Number of times each player has played the game """
         for i in self.scores: 
             self.played_times.append(len(i))
 
@@ -97,3 +108,16 @@ class Logic:
         self.one_player_played_times = len(self.scores[index])
         
         return self.one_player_score, self.one_player_time, self.one_player_top_score, self.one_player_top_time, self.one_player_played_times
+
+    def sort_by_names(self):
+        # Sort by keys that contain dictionary 
+        result = sorted(self.all_data.items()) # List with tuples 
+
+        for item in result:
+            # Remove Tuples 
+            self.new_sorted[item[0]] = item[1]
+            
+        for i in self.new_sorted:
+            self.sorted_names.append(i)
+            self.names_scores.append(max(self.new_sorted[i]["Score"]))
+            self.names_times.append(max(self.new_sorted[i]["Time"]))
