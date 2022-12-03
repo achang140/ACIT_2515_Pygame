@@ -34,13 +34,20 @@ class Character(pygame.sprite.Sprite):
 
     def move_up(self):
         """
-        Moves the character to the top by 15 pixels.
+        Moves the character to the top by 15 pixels and 
+        keeps the character within the screen. 
         """
         self.rect.y -= 15 
+        # Prevent Character from Moving Out of the Screen 
+        if self.rect.top < 0: 
+            self.rect.y = 0 
 
     def move_down(self):
         """
         Moves the character to the bottom by 15 pixels. 
         """
         self.rect.y += 15 
+        # Prevent Character from Moving Out of the Screen 
+        if self.rect.bottom > 600:
+            self.rect.y = 500
         

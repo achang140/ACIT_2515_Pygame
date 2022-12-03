@@ -1,15 +1,18 @@
-import pygame, math, json 
-from screens.base_screen import BaseScreen
-from components.text_box import TextBox
-from breakout.components.character import Character
-# from breakout.components.happy_character import HappyCharacter
-from breakout.components.clean_condition import CleanCondition
-from breakout.components.dirty_condition import DirtyCondition
-from breakout.components.snow_condition import SnowCondition
-from breakout.components.flower_env import FlowerEnv
+import pygame, math
+from screen import BaseScreen
+from breakout.components import Character, CleanCondition, DirtyCondition, SnowCondition, FlowerEnv
+from component import TextBox
 
 class GameScreen(BaseScreen):
+    """ 
+    GameScreen Class inherits from BaseScreen Class 
+    Game Screen with a character that interacts with the four sprite groups (clean water, dirty water, snow, and flower). 
+    """
     def __init__(self, window, state):
+        """ 
+        Constructs necessary components for the game. 
+        Tracks scores and times for each player.
+        """
         super().__init__(window, state)
         self.score = 0 
         self.time = pygame.time.get_ticks()
@@ -22,6 +25,10 @@ class GameScreen(BaseScreen):
         self.flower_env = FlowerEnv()
     
     def draw(self):
+        """ 
+        Desert background with movable characters, controlled by the player using the arrow keys on the keyboard. 
+        Draw sprite groups (clean water droplets, dirty water droplets, snow) and a flower onto the game screen. 
+        """
         background_image = pygame.image.load("./images/background.png")
         background = pygame.transform.scale(background_image, (800, 700))
         self.window.blit(background, (0, 0))
@@ -36,15 +43,16 @@ class GameScreen(BaseScreen):
         self.dirty_condition.draw(self.window)
         self.snow_condition.draw(self.window)
 
-        # Change Character to Happy if self.score > 0 
-        # if self.score > 0: 
-        #     self.window.blit(self.happy_character.image, self.happy_character.rect)
-
-        # Check Rectangle Around the Container 
-        # pygame.draw.rect(self.window, (0, 0, 0), self.character.rect_rectangle, 2)
-
     def update(self):
+        """ 
+        Update score and time on the game screen. 
+        If the character touches a clean water drop, the score is increased by 2.
+        If the character touches a snowflake, the score is increased by 1. 
+        If the character touches a dirty water drop, the game is over and goes to the final_screen. 
+        If the character touches the flower, the game ends and goes to the final_win_screen. 
+        """
         current_time = pygame.time.get_ticks()
+        
         self.clean_condition.update() 
         self.dirty_condition.update()
         self.snow_condition.update() 
@@ -57,30 +65,39 @@ class GameScreen(BaseScreen):
 
         if pygame.sprite.spritecollide(self.character, self.clean_condition, dokill = True):
             self.score += 2
-            # print(self.score)
         
         if pygame.sprite.spritecollide(self.character, self.snow_condition, dokill = True):
             self.score += 1 
-            # print(self.score)
 
         if pygame.sprite.spritecollide(self.character, self.dirty_condition, dokill = True):
+            # Append total score to self.state 
             self.state["final_score"] = self.score
+            # Append total time to self.state 
             self.final_time += seconds 
             self.state["final_time"] = self.final_time 
-            # print(self.final_time)
+
             pygame.time.wait(150)
             self.running = False 
             self.next_screen = "final"
 
         if pygame.sprite.spritecollide(self.character, self.flower_env, dokill = False):
+            # Append total score to self.state 
             self.state["final_score"] = self.score
+            # Append total time to self.state 
             self.final_time += seconds 
-            self.state["final_time"] = self.final_time             
-            # print(self.final_time)
+            self.state["final_time"] = self.final_time
+
             self.running = False
             self.next_screen = "finalwin"
         
     def manage_event(self, event):
+        """ 
+        Detects keyboard actions. 
+        Click the right arrow key, the character moves to the right. 
+        Click the left arrow key, the character moves to the left. 
+        Click the up arrow key, the character moves to the top. 
+        Click the down arrow key, the character moves to the bottom. 
+        """
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
                 self.character.move_right()

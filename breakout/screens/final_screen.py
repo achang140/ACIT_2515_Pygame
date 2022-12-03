@@ -1,18 +1,23 @@
 import pygame, webbrowser
-from screens.base_screen import BaseScreen
-from breakout.components.unhappy_character import UnhappyCharacter
-from breakout.components.final_flower import FinalFlower
-# from .game_screen import GameScreen
-from components.text_box import TextBox
 from subprocess import Popen 
+from screen import BaseScreen
+from component import TextBox
+from breakout.components import UnhappyCharacter, FinalFlower
 
 class FinalScreen(BaseScreen):
-    """ Final Screen to Players who did not successful water the flower """
+    """ 
+    FinalScreen Class inherits from BaseScreen Class 
+    Final Screen to players who did not successful water the flower (Character touches the dirty water before colliding with the flower) 
+    """
     def __init__(self, window, state):
-        """ Constructor """
+        """ 
+        Constructs necessary components for the final screen. 
+        Background with an unhappy character and a thirsty flower. 
+        Includes 2 buttons (start and exit), total score, and total time. 
+        """
         super().__init__(window, state)
-        self.start_btn = TextBox((300, 80), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
-        self.start_btn.rect.topleft = (250, 200)
+        self.play_again_btn = TextBox((300, 80), "Play Again", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
+        self.play_again_btn.rect.topleft = (250, 200)
 
         self.end_btn = TextBox((300, 80), "Exit", bgcolor = (173, 188, 230)) 
         self.end_btn.rect.topleft = (250, 300)
@@ -28,22 +33,17 @@ class FinalScreen(BaseScreen):
         self.unhappy_character = UnhappyCharacter()
         self.final_flower = FinalFlower()
 
-        print(self.state["final_time"])
-        print(self.state["final_score"])
-        print(self.state["username"])
-        # self.game = GameScreen(BaseScreen)
-
-
     def draw(self):
         """ 
+        Final screen has a desert background with an unhappy character and a thirsty flower. 
         Draw 2 buttons (Start and Exit), 2 images (Character and Flower), 
-        final score, and final time onto the screen 
+        final score, and final time onto the final screen. 
         """
         background_image = pygame.image.load("./images/background.png")
         background = pygame.transform.scale(background_image, (800, 700))
         self.window.blit(background, (0, 0))
 
-        self.window.blit(self.start_btn.image, self.start_btn.rect)
+        self.window.blit(self.play_again_btn.image, self.play_again_btn.rect)
         self.window.blit(self.end_btn.image, self.end_btn.rect)
 
         self.window.blit(self.unhappy_character.image, self.unhappy_character.rect)
@@ -51,18 +51,18 @@ class FinalScreen(BaseScreen):
 
         self.window.blit(self.score_board.image, self.score_board.rect)
         self.window.blit(self.timer.image, self.timer.rect)
-
-        # self.window.blit(self.game.score_board, (0, 0))
    
     def update(self):
         pass 
 
     def manage_event(self, event):
         """ 
-        Detect mouse 
+        Detects mouse actions. 
+        If the user clicks the "Play Again" button, redirect to the user_info_screen asking for the username.
+        If the user clicks the "Exit" button, exit the pygame window and go directly to the Flask browser.
         """
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.start_btn.rect.collidepoint(event.pos):
+            if self.play_again_btn.rect.collidepoint(event.pos):
                 self.write_to_json()
                 self.running = False
                 self.next_screen = "userinfo"

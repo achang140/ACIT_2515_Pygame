@@ -1,11 +1,19 @@
 import pygame 
-from screens.base_screen import BaseScreen 
-from components.text_box import TextBox
+from screen import BaseScreen 
+from component import TextBox
 
 class WelcomeScreen(BaseScreen):
+    """
+    WelcomeScreen Class inherits from BaseScreen Class 
+    Welcome Screen with a "Start" button and an "Instruction" button 
+    """
     def __init__(self, window, state):
+        """ 
+        Constructs necessary components for the welcome screen. 
+        Style and position a "Start" button and an "Instruction" button 
+        """
         super().__init__(window, state)
-        # WelcomeScreen Buttons 
+
         self.start_btn = TextBox((300, 80), "Start", bgcolor = (230, 173, 216)) # Width and Height, Text, Background Color 
         self.start_btn.rect.topleft = (250, 200)
 
@@ -13,6 +21,9 @@ class WelcomeScreen(BaseScreen):
         self.instruction_btn.rect.topleft = (250, 300) 
 
     def draw(self):
+        """ 
+        Desert background with "Start" and "Instruction" buttons 
+        """
         background_image = pygame.image.load("./images/background_character.png")
         background = pygame.transform.scale(background_image, (800, 700))
         self.window.blit(background, (0, 0))
@@ -24,6 +35,11 @@ class WelcomeScreen(BaseScreen):
         pass
 
     def manage_event(self, event):
+        """ 
+        Detects mouse actions. 
+        If the user clicks the "Start" button, directs to userinfo screen before starting the game. 
+        If the user click the "Instruction" button, directs to the instruction page. 
+        """
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.start_btn.rect.collidepoint(event.pos):
                 self.running = False
@@ -31,6 +47,3 @@ class WelcomeScreen(BaseScreen):
             if self.instruction_btn.rect.collidepoint(event.pos):
                 self.running = False 
                 self.next_screen = "instruction"
-
-            # print(self.user_name)
-            # print(self.state["username"])

@@ -1,5 +1,5 @@
 import pygame 
-from screens.base_screen import BaseScreen
+from screen.base_screen import BaseScreen
 
 class InstructionScreen(BaseScreen):
     def __init__(self, window, state):
