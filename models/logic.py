@@ -38,7 +38,6 @@ class Logic:
         self.best = {} # Dictionary contains best user's name, score, and time 
 
         self.load_from_json()
-        self.sort_by_names()
         self.high_score_time()
         self.best_player()
         self.times_played()
@@ -108,16 +107,3 @@ class Logic:
         self.one_player_played_times = len(self.scores[index])
         
         return self.one_player_score, self.one_player_time, self.one_player_top_score, self.one_player_top_time, self.one_player_played_times
-
-    def sort_by_names(self):
-        # Sort by keys that contain dictionary 
-        result = sorted(self.all_data.items()) # List with tuples 
-
-        for item in result:
-            # Remove Tuples 
-            self.new_sorted[item[0]] = item[1]
-            
-        for i in self.new_sorted:
-            self.sorted_names.append(i)
-            self.names_scores.append(max(self.new_sorted[i]["Score"]))
-            self.names_times.append(max(self.new_sorted[i]["Time"]))
