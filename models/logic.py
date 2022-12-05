@@ -12,11 +12,6 @@ class Logic:
         self.all_data = {}
         self.new_sorted = {}
         
-        # Names in Alphabetical Order, with highest score and associated times in the same order as names   
-        self.sorted_names = []
-        self.names_scores = []
-        self.names_times = [] 
-        
         # Name of All Players 
         self.players = [] 
         # History of All Players (Scores and Times)
